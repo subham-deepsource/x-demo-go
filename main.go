@@ -259,3 +259,66 @@ func xpathInjection(r *http.Request, doc tree.Node) {
 		panic(err)
 	}
 }
+
+func caller(x, y bool) bool {
+	return x && y
+}
+
+func goP3001(x, y bool) {
+	if caller(x, y) || x {
+		println("performance opt")
+	}
+}
+
+func goR3001(n interface{}) {
+	_ = n
+}
+
+func goR3002() bool {
+	do := true
+	if do {
+		println("hello world")
+	} else {
+		return false
+	}
+
+	if do {
+		return true
+	} else {
+		return false
+	}
+}
+
+func foo() error { return nil }
+
+func rvvB0005_1() error {
+	if err := foo(); err != nil {
+		return err
+	}
+	return nil
+
+}
+
+func rvvB0005_2() error {
+	var err error
+	if err != nil {
+		return err
+	} else {
+		return nil
+	}
+}
+
+func sccSA4001() {
+	var x1 int
+	var x2 *int
+	y := &*x2
+	z := *&x1
+
+	_, _ = y, z
+}
+
+func sccSA4021(x, y []int) {
+	x = append(y)
+
+	x = y
+}

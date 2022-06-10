@@ -12,6 +12,7 @@ import (
 	"os/exec"
 	"regexp"
 	"runtime"
+	"strings"
 
 	"github.com/ChrisTrenkamp/goxpath"
 	"github.com/ChrisTrenkamp/goxpath/tree"
@@ -321,4 +322,29 @@ func sccSA4021(x, y []int) {
 	x = append(y)
 
 	x = y
+}
+
+func goW1008() {
+	str := "hello@deepsource.io@test"
+
+	m := make(map[int]string)
+	m[1] = str
+
+	test := -2
+
+	// Just here to get more coverage
+	if test == -1 {
+		return
+	}
+
+	idx1, idx2 := strings.Index(str, "@"), strings.Index(str, "@") // want "strings.Index used to cut a string"
+	_, _ = str[:idx1], str[idx1+1:]
+	_, _ = str[:idx2], str[idx2+1:]
+
+	idx := strings.Index(str, "@") // want "strings.Index used to cut a string"
+	if idx == -1 {
+		return
+	}
+	_, v := str[:idx], str[idx+1:]
+	_ = v
 }

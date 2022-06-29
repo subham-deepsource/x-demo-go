@@ -297,7 +297,6 @@ func rvvB0005_1() error {
 		return err
 	}
 	return nil
-
 }
 
 func rvvB0005_2() error {
